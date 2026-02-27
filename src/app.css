@@ -1,0 +1,32 @@
+/* src/app.css */
+@import "tailwindcss";
+
+/* Tus estilos personalizados */
+* {
+    @apply antialiased;
+}
+
+body {
+    /* Asegúrate de tener definidos estos colores en tu tema de Tailwind 
+       o usa valores hexadecimales si aún no los has configurado */
+    background-color: #121212; 
+    color: white;
+}
+
+/* --- SCROLLBAR --- */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
