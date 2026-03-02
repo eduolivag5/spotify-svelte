@@ -2,15 +2,16 @@
     import HighlightedAlbum from '$lib/components/HighlightedAlbum.svelte';
     import MediaCard from '$lib/components/MediaCard.svelte';
     import SectionContainer from '$lib/components/SectionContainer.svelte';
+    import Carousel from '$lib/components/Carousel.svelte';
     
     let { data } = $props();
 </script>
 
-<div class="relative z-10 flex flex-col gap-8">
+<div class="relative z-10 flex flex-col gap-6">
 
     <SectionContainer title="Tus Artistas Top" href="/top-artists">
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 w-full">
-            {#each (data.topArtists?.slice(0, 4) || []) as artist}
+        <Carousel>
+            {#each (data.topArtists?.slice(0, 10) || []) as artist}
                 <MediaCard 
                     href="/artist/{artist.id}"
                     title={artist.name}
@@ -19,7 +20,7 @@
                     transitionName="artist-{artist.id}"
                 />
             {/each}
-        </div>
+        </Carousel>
     </SectionContainer>
 
     {#if data.highlightedAlbum}
@@ -27,8 +28,8 @@
     {/if}
 
     <SectionContainer title="Tus playlists" href="/your-playlists">
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 w-full">
-            {#each (data.playlists?.slice(0, 4) || []) as playlist}
+        <Carousel>
+            {#each (data.playlists?.slice(0, 10) || []) as playlist}
                 <MediaCard 
                     href="/playlist/{playlist.id}"
                     title={playlist.name}
@@ -37,6 +38,6 @@
                     transitionName="playlist-{playlist.id}"
                 />
             {/each}
-        </div>
+        </Carousel>
     </SectionContainer>
 </div>

@@ -15,8 +15,17 @@
             </h2>
         </div>
         
-        <a {href} class="text-[11px] font-bold text-zinc-400 hover:text-white uppercase tracking-widest px-3 py-1.5 border border-zinc-800 hover:border-[#1DB954] rounded-full transition-all duration-300 bg-zinc-900/50">
-            Mostrar todos
+        <a {href} 
+            class="relative px-4 py-1.5 rounded-full
+                text-[10px] font-bold text-zinc-400 hover:text-white uppercase tracking-[0.15em]
+                transition-all duration-300
+                bg-white/[0.02] hover:bg-white/[0.06]
+                backdrop-blur-sm
+                border border-white/5 border-t-white/10
+                hover:border-white/20
+                will-change-transform active:scale-95">
+            
+            <span class="relative z-10">Mostrar todos</span>
         </a>
     </div>
     
@@ -28,24 +37,12 @@
 </section>
 
 <style>
-    .scrollbar-hide::-webkit-scrollbar {
-        display: none;
-    }
-    .scrollbar-hide {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
+    /* El CSS se queda solo para lo que Tailwind no cubre nativamente de forma limpia */
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
     .mask-fade {
-        mask-image: linear-gradient(
-            to right,
-            black 0%,
-            black 92%,
-            transparent 100%
-        );
-    }
-
-    :global(.mask-fade > *) {
-        snap-align: start;
+        -webkit-mask-image: linear-gradient(to right, black 0%, black 92%, transparent 100%);
+        mask-image: linear-gradient(to right, black 0%, black 92%, transparent 100%);
     }
 </style>

@@ -3,7 +3,6 @@
 
     let { album } = $props<{ album: SpotifyAlbum | null }>();
 
-    // Usamos un fallback seguro para evitar que topTracks rompa el renderizado
     const topTracks = $derived(album?.tracks?.items?.slice(0, 3) ?? []);
 
     function formatDuration(ms: number | undefined) {
@@ -16,7 +15,7 @@
 
 <div class="highlighted-album-container">
     {#if album && album.images && album.images.length > 0}
-        <div class="relative overflow-hidden rounded-3xl bg-zinc-900/20 p-6 md:p-10 mb-8 border border-white/5 group shadow-2xl transition-all hover:border-white/10">
+        <div class="relative overflow-hidden rounded-3xl bg-zinc-900/20 p-6 md:p-10 mb-8 border border-white/5 group shadow-lg transition-all hover:border-white/10">
             <div class="flex flex-col md:flex-row gap-10 items-start relative z-10">
                 
                 <div class="flex-shrink-0 mx-auto md:mx-0">
@@ -24,7 +23,7 @@
                         <img 
                             src={album.images[0].url} 
                             alt={album.name} 
-                            class="w-64 h-64 shadow-[0_20px_50px_rgba(0,0,0,0.7)] rounded-lg object-cover" 
+                            class="w-64 h-64 shadow-[0_10px_15px_rgba(0,0,0,0.3)] rounded-lg object-cover" 
                         />
                     </div>
                 </div>
@@ -65,7 +64,7 @@
                 </div>
             </div>
 
-            <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-[#1DB954]/10 rounded-full blur-[100px] pointer-events-none opacity-50"></div>
+            <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-[#1DB954]/5 rounded-full blur-[100px] pointer-events-none opacity-40"></div>
         </div>
     {/if}
 </div>

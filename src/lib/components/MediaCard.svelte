@@ -4,51 +4,47 @@
 
 <a 
     {href} 
-    class="group relative flex flex-col gap-3 p-3 w-full
-           rounded-[2rem] transition-all duration-500
+    class="group relative flex flex-col gap-2 p-2.5 w-fit
+           rounded-[1.2rem] transition-colors duration-300
            bg-white/[0.03] hover:bg-white/[0.08]
            border border-white/[0.05] hover:border-white/[0.1]
-           hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)]
-           isolate overflow-hidden"
+           isolate"
 >
-    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none bg-gradient-to-br from-white/[0.05] via-transparent to-transparent z-10"></div>
+    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none bg-gradient-to-br from-white/[0.05] to-transparent z-10"></div>
 
-    <div class="relative w-full aspect-square overflow-hidden rounded-[1.5rem] bg-zinc-900 shadow-inner shrink-0">
+    <div class="relative w-32 h-32 md:w-36 md:h-36 overflow-hidden rounded-[0.8rem] bg-zinc-900 shrink-0 will-change-transform">
         {#if image}
             <img 
                 src={image} 
                 alt={title} 
-                class="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-105"
+                class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                 style="view-transition-name: {transitionName};"
                 loading="lazy"
-                decoding="async"
             />
         {:else}
             <div class="w-full h-full flex items-center justify-center bg-zinc-800">
-                <svg class="w-10 h-10 text-white/5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+                <svg class="w-8 h-8 text-white/5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
             </div>
         {/if}
         
         <button 
             aria-label="Reproducir {title}"
-            class="absolute right-3 bottom-3 w-12 h-12 
-                   bg-[#1DB954] border border-white/20
-                   rounded-full shadow-[0_8px_24px_rgba(29,185,84,0.5)]
+            class="absolute right-2 bottom-2 w-9 h-9 
+                   bg-[#1DB954] rounded-full
                    flex items-center justify-center 
-                   opacity-0 scale-90
-                   group-hover:opacity-100 group-hover:scale-100 
-                   transition-all duration-300 ease-out
-                   hover:scale-110 active:scale-95 z-20"
+                   opacity-0 translate-y-2 scale-90
+                   group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100 
+                   transition-all duration-300 ease-out z-20 will-change-transform"
         >
-            <svg viewBox="0 0 24 24" class="w-6 h-6 fill-black"><path d="M8 5v14l11-7z"/></svg>
+            <svg viewBox="0 0 24 24" class="w-5 h-5 fill-black"><path d="M8 5v14l11-7z"/></svg>
         </button>
     </div>
 
-    <div class="flex flex-col gap-0.5 min-w-0 px-1 py-1">
-        <span class="font-bold truncate text-white text-sm tracking-tight group-hover:text-[#1DB954] transition-colors duration-300">
+    <div class="flex flex-col gap-0 w-32 md:w-36 px-1">
+        <span class="font-bold truncate text-white text-[13px] tracking-tight group-hover:text-[#1DB954] transition-colors duration-300">
             {title}
         </span>
-        <span class="text-[11px] font-medium text-zinc-500 truncate uppercase tracking-[0.05em]">
+        <span class="text-[10px] font-medium text-zinc-500 truncate uppercase tracking-wider opacity-80">
             {subtitle}
         </span>
     </div>
@@ -56,18 +52,24 @@
 
 <style>
     a { 
-        contain: content; 
-        -webkit-tap-highlight-color: transparent;
+        /* Evita que el navegador recalcule el layout de los elementos de alrededor */
+        contain: layout paint;
+        /* Forzamos la creación de una capa en la GPU (Layer Promotion) */
         transform: translateZ(0);
+        backface-visibility: hidden;
+        -webkit-tap-highlight-color: transparent;
     }
 
-    /* Refuerzo del borde orgánico */
-    a::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        border-radius: inherit;
-        pointer-events: none;
-        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+    /* Eliminamos sombras complejas en hover que saturan la GPU en grids grandes */
+    /* En su lugar, usamos el cambio de brillo del bg-white/[0.08] ya definido */
+
+    img {
+        /* Evita artefactos visuales durante la transición de escala */
+        image-rendering: -webkit-optimize-contrast;
+        will-change: transform;
+    }
+
+    button {
+        will-change: transform, opacity;
     }
 </style>
