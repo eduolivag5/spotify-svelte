@@ -1,28 +1,21 @@
+// src/routes/+layout.server.ts
 import * as spotify from '$lib/spotify.server';
 import type { LayoutServerLoad } from './$types';
 
 export const load: LayoutServerLoad = async ({ setHeaders }) => {
-    // 1. Eliminamos 'depends' para que SvelteKit no tenga un "gancho" para invalidar esto manualmente.
-    
-    // 2. Opcional: Cachear la respuesta a nivel de cabeceras HTTP (30 segundos de gracia)
-    // Esto evita re-ejecuciones si el usuario refresca la página muy rápido.
+    // Cache a nivel de navegador para evitar peticiones si se navega atrás/adelante
     setHeaders({
-        'cache-control': 'public, max-age=30'
+        'cache-control': 'private, max-age=3600' // 1 hora de caché privada
     });
 
-    console.log("--- 🔄 CARGANDO BIBLIOTECA (SOLO DEBERÍAS VER ESTO UNA VEZ) ---");
+    console.log("--- 🔄 CARGANDO BIBLIOTECA (UNA SOLA VEZ) ---");
     
     try {
         const savedItems = await spotify.getUserSavedAlbums(20);
-        
         return {
-            // Mapeamos los datos para que el cliente reciba solo lo necesario
             savedAlbums: savedItems.map(item => item.album)
         };
     } catch (error) {
-        console.error("Error cargando biblioteca:", error);
-        return {
-            savedAlbums: []
-        };
+        return { savedAlbums: [] };
     }
 };

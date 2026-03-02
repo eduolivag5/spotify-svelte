@@ -6,11 +6,11 @@
     let { data } = $props();
 </script>
 
-<div class="relative z-10 flex flex-col gap-12">
+<div class="relative z-10 flex flex-col gap-8">
 
     <SectionContainer title="Tus Artistas Top" href="/top-artists">
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 w-full">
-            {#each data.topArtists as artist}
+            {#each (data.topArtists?.slice(0, 4) || []) as artist}
                 <MediaCard 
                     href="/artist/{artist.id}"
                     title={artist.name}
@@ -26,15 +26,17 @@
         <HighlightedAlbum album={data.highlightedAlbum} />
     {/if}
 
-    <SectionContainer title="Hecho para ti" href="/foryou">
-        {#each (data.playlists?.slice(0, 4) || []) as playlist}
-            <MediaCard 
-                href="/playlist/{playlist.id}"
-                title={playlist.name}
-                subtitle={playlist.description || "Basado en tu actividad reciente"}
-                image={playlist.images[0]?.url}
-                transitionName="playlist-{playlist.id}"
-            />
-        {/each}
+    <SectionContainer title="Tus playlists" href="/your-playlists">
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 w-full">
+            {#each (data.playlists?.slice(0, 4) || []) as playlist}
+                <MediaCard 
+                    href="/playlist/{playlist.id}"
+                    title={playlist.name}
+                    subtitle={playlist.description || "Playlist"}
+                    image={playlist.images[0]?.url}
+                    transitionName="playlist-{playlist.id}"
+                />
+            {/each}
+        </div>
     </SectionContainer>
 </div>

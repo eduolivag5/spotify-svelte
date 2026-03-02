@@ -1,21 +1,34 @@
 /* src/app.css */
 @import "tailwindcss";
 
-/* Tus estilos personalizados */
-* {
-    @apply antialiased;
+@theme {
+  /* Esto sobreescribe la fuente sans por defecto de Tailwind */
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+:root {
+    /* Forzado manual para elementos que no hereden de Tailwind */
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01", "ss03", "cv05"; /* Optimizaciones para Inter */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-    /* Asegúrate de tener definidos estos colores en tu tema de Tailwind 
-       o usa valores hexadecimales si aún no los has configurado */
-    background-color: #121212; 
-    color: white;
+    /* Cambiado a negro puro para que pegue con tu diseño minimalista */
+    background-color: #000000; 
+    color: #ffffff;
+    margin: 0;
 }
 
-/* --- SCROLLBAR --- */
+/* Aplicar la fuente a todo */
+* {
+    font-family: inherit;
+}
+
+/* --- SCROLLBAR MINIMALISTA --- */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
 }
 
 ::-webkit-scrollbar-track {
