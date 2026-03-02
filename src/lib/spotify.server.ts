@@ -9,7 +9,8 @@ import type {
     SpotifyAlbum, 
     SpotifyTrack, 
     SpotifyPaging, 
-    SpotifyPlaylist 
+    SpotifyPlaylist, 
+    SimpleTrack
 } from '../types';
 
 const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`;
@@ -75,6 +76,13 @@ export async function spotifyFetch<T>(endpoint: string): Promise<T | null> {
 export const getTopArtists = async (limit = 10) => {
     const data = await spotifyFetch<{ items: SpotifyArtist[] }>(
         `/me/top/artists?limit=${limit}&time_range=short_term`
+    );
+    return data?.items ?? [];
+};
+
+export const getTopTracks = async (limit = 10) => {
+    const data = await spotifyFetch<{ items: SimpleTrack[] }>(
+        `/me/top/tracks?limit=${limit}&time_range=short_term`
     );
     return data?.items ?? [];
 };

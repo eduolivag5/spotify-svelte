@@ -61,20 +61,24 @@
         <div class="w-[1px] transition-all duration-300 {isResizing ? 'bg-[#1DB954] h-full shadow-[0_0_15px_#1DB954]' : 'bg-white/5 h-12 group-hover:bg-white/20'}"></div>
     </div>
 
-    <main class="relative w-full px-4 pt-4 pb-32 md:p-8 md:overflow-y-auto 
-                 bg-white/[0.02] backdrop-blur-md rounded-3xl md:border border-white/5 md:border-t-white/10">
-        {@render children()}
-    </main>
+    <main class="relative w-full pt-4 pb-32 px-4 
+             md:px-8 md:p-8 md:overflow-y-auto 
+             bg-transparent md:bg-white/[0.03] md:backdrop-blur-md
+             rounded-none md:rounded-3xl
+             md:border md:border-white/10
+             md:shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+    {@render children()}
+</main>
 
-    <div class="md:col-span-3">
-        <div class="hidden md:block"> 
-            <Player />
-        </div>
-        
-        <div class="md:hidden fixed bottom-0 left-0 right-0 p-4 z-[110] bg-gradient-to-t from-black via-black/95 to-transparent">
-            <Navbar bind:isMenuOpen />
-        </div>
+<div class="md:col-span-3">
+    <div class="hidden md:block"> 
+        <Player />
     </div>
+    
+    <div class="md:hidden fixed bottom-0 left-0 right-0 p-4 z-[110] bg-[#050505]/95 backdrop-blur-xl border-t border-white/5">
+        <Navbar bind:isMenuOpen />
+    </div>
+</div>
 </div>
 
 <style>

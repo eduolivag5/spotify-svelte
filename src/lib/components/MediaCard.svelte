@@ -51,20 +51,13 @@
 </a>
 
 <style>
-    a { 
-        /* Evita que el navegador recalcule el layout de los elementos de alrededor */
-        contain: layout paint;
-        /* Forzamos la creación de una capa en la GPU (Layer Promotion) */
+    a {
         transform: translateZ(0);
         backface-visibility: hidden;
         -webkit-tap-highlight-color: transparent;
     }
 
-    /* Eliminamos sombras complejas en hover que saturan la GPU en grids grandes */
-    /* En su lugar, usamos el cambio de brillo del bg-white/[0.08] ya definido */
-
     img {
-        /* Evita artefactos visuales durante la transición de escala */
         image-rendering: -webkit-optimize-contrast;
         will-change: transform;
     }

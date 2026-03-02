@@ -68,7 +68,7 @@
                 disabled
                 type="text" 
                 placeholder="¿Qué te apetece escuchar?" 
-                class="bg-white/5 border border-white/5 rounded-full py-1.5 pl-10 pr-4 w-[280px] text-xs outline-none text-white/20 placeholder:text-white/20 pointer-events-none" 
+                class="bg-white/10 border border-white/5 rounded-full py-1.5 pl-10 pr-4 w-[280px] text-xs outline-none placeholder:text-white pointer-events-none" 
             />
         </div>
     </div>

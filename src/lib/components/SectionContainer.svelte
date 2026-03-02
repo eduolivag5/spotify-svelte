@@ -29,20 +29,31 @@
         </a>
     </div>
     
-    <div class="relative">
-        <div class="flex gap-5 md:gap-7 overflow-x-auto pb-6 scrollbar-hide snap-x snap-mandatory mask-fade">
+    <div class="relative"> 
+        <div class="flex gap-5 md:gap-7 overflow-x-auto scrollbar-hide snap-x snap-mandatory mask-fade"> 
             {@render children()}
         </div>
     </div>
 </section>
 
 <style>
-    /* El CSS se queda solo para lo que Tailwind no cubre nativamente de forma limpia */
     .scrollbar-hide::-webkit-scrollbar { display: none; }
     .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
+    /* 3. IMPORTANTE: Ajustamos la máscara para que no corte el brillo por arriba/abajo */
     .mask-fade {
-        -webkit-mask-image: linear-gradient(to right, black 0%, black 92%, transparent 100%);
-        mask-image: linear-gradient(to right, black 0%, black 92%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to right, 
+            black 0%, 
+            black 92%, 
+            transparent 100%
+        );
+        mask-image: linear-gradient(to right, 
+            black 0%, 
+            black 92%, 
+            transparent 100%
+        );
+        /* Aseguramos que la máscara cubra todo el padding vertical */
+        mask-clip: border-box;
+        -webkit-mask-clip: border-box;
     }
 </style>

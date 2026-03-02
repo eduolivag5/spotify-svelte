@@ -23,6 +23,18 @@ export interface SpotifyTrack {
   is_playing: boolean;
 }
 
+export interface SimpleTrack {
+    id: string; // Siempre es útil para la 'key' en los loops
+    name: string; // Título de la canción
+    duration_ms: number; // Para calcular mm:ss
+    album: {
+        images: { url: string }[]; // Para la portada
+    };
+    artists: {
+        name: string; // Nombres de los artistas
+    }[];
+}
+
 export interface SpotifyArtist {
   id: string;
   name: string;

@@ -28,8 +28,14 @@
         <div class="flex flex-col md:flex-row items-center gap-8 relative z-10">
             <div class="relative group/avatar">
                 <div class="absolute inset-0 bg-gradient-to-tr from-indigo-500 to-purple-600 rounded-full blur-md opacity-40 transition-colors duration-500 group-hover/avatar:opacity-70 transition-opacity"></div>
-                <img src={user.image} alt={user.name} 
-                     class="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-2 border-white/10 relative z-10 shadow-2xl" />
+                <img 
+                    src={user.image} 
+                    alt={user.name} 
+                    fetchpriority="high"
+                    loading="eager"
+                    decoding="sync"
+                    class="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-2 border-white/10 relative z-10 shadow-2xl" 
+                />
             </div>
 
             <div class="flex flex-col items-center md:items-start gap-1">
