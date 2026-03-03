@@ -4,11 +4,12 @@
 
 <a 
     {href} 
-    class="group relative flex flex-col gap-2 p-2.5 w-fit
+    class="group relative flex flex-col gap-2 p-2.5 
+           w-fit shrink-0 
            rounded-[1.2rem] transition-colors duration-300
            bg-white/[0.03] hover:bg-white/[0.08]
            border border-white/[0.05] hover:border-white/[0.1]
-           isolate"
+           isolate overflow-hidden"
 >
     <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none bg-gradient-to-br from-white/[0.05] to-transparent z-10"></div>
 

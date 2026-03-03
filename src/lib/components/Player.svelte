@@ -33,11 +33,26 @@
             </div>
         </div>
         
-        <div class="hidden md:flex w-[30%] justify-end gap-4 text-white/40">
-            <button aria-label="Silenciar" class="hover:text-white">
-                <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+        <div class="hidden md:flex w-[30%] items-center justify-end gap-3 group/vol">
+            <button aria-label="Volumen" class="text-zinc-500 hover:text-white transition-colors duration-300">
+                <svg 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    stroke-width="1.5" 
+                    stroke-linecap="round" 
+                    stroke-linejoin="round" 
+                    class="w-5 h-5"
+                >
+                    <path d="M11 5L6 9H2V15H6L11 19V5Z" />
+                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+                </svg>
             </button>
-            <div class="w-24 h-1.5 bg-white/10 rounded-full mt-2"></div>
+            
+            <div class="relative w-24 h-1 bg-white/5 rounded-full overflow-hidden cursor-pointer">
+                <div class="absolute inset-y-0 left-0 w-[65%] bg-zinc-400 group-hover/vol:bg-[#1DB954] transition-all duration-300 shadow-[0_0_8px_rgba(255,255,255,0.1)]"></div>
+            </div>
         </div>
     </div>
 </footer>

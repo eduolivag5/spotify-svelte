@@ -98,7 +98,7 @@ export const getArtistData = async (id: string) => {
     const [artist, allAlbumsData] = await Promise.all([
         getArtist(id),
         spotifyFetch<{ items: any[] }>(
-            `/artists/${id}/albums?include_groups=album,single&market=ES&limit=50`
+            `/artists/${id}/albums?include_groups=album,single&market=ES&limit=10`
         )
     ]);
 

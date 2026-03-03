@@ -33,7 +33,7 @@
         {#each tracks as row, i}
             {@const track = row.track || row}
             {#if track && track.name}
-                <tr class="group transition-colors duration-75 hover:bg-white/[0.03]">
+                <tr class="group transition-colors duration-75 hover:bg-white/[0.03] cursor-pointer">
                     <td class="py-4 pl-4 text-zinc-600 group-hover:text-zinc-400 font-mono text-xs text-center">
                         {i + 1}
                     </td>

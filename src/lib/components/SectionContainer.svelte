@@ -35,25 +35,3 @@
         </div>
     </div>
 </section>
-
-<style>
-    .scrollbar-hide::-webkit-scrollbar { display: none; }
-    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-
-    /* 3. IMPORTANTE: Ajustamos la máscara para que no corte el brillo por arriba/abajo */
-    .mask-fade {
-        -webkit-mask-image: linear-gradient(to right, 
-            black 0%, 
-            black 92%, 
-            transparent 100%
-        );
-        mask-image: linear-gradient(to right, 
-            black 0%, 
-            black 92%, 
-            transparent 100%
-        );
-        /* Aseguramos que la máscara cubra todo el padding vertical */
-        mask-clip: border-box;
-        -webkit-mask-clip: border-box;
-    }
-</style>

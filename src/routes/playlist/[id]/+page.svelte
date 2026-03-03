@@ -20,7 +20,7 @@
 </script>
 
 <div class="w-full h-full text-zinc-100 overflow-y-auto overflow-x-hidden">
-    <header class="p-8 md:p-12 flex flex-col md:flex-row items-center md:items-end gap-8">
+    <header class="p-8 md:p-12 flex flex-col md:flex-row items-center md:items-end gap-8 bg-zinc-900 rounded-t-3xl">
         <div class="relative shrink-0">
             <img 
                 src={playlist.images?.[0]?.url} 
@@ -47,13 +47,11 @@
         </div>
     </header>
 
-    <main class="px-4 md:px-8 pb-20">
-        <TrackList 
-            tracks={trackRows} 
-            showAlbumColumn={true} 
-            showImage={true} 
-        />
-    </main>
+    <TrackList 
+        tracks={trackRows} 
+        showAlbumColumn={true} 
+        showImage={true} 
+    />
 </div>
 
 <style>

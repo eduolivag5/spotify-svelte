@@ -14,7 +14,7 @@
 </script>
 
 <div class="w-full h-full text-zinc-100 overflow-y-auto overflow-x-hidden">
-    <header class="p-8 md:p-12 flex flex-col md:flex-row items-center md:items-end gap-8">
+    <header class="rounded-t-3xl bg-zinc-900 p-8 md:p-12 flex flex-col md:flex-row items-center md:items-end gap-8">
         <div class="relative shrink-0">
             <img 
                 src={album.images[0]?.url} 
@@ -39,13 +39,11 @@
         </div>
     </header>
 
-    <main class="px-4 md:px-8 pb-20">
-        <TrackList 
-            tracks={data.tracks} 
-            showAlbumColumn={false} 
-            showImage={false} 
-        />
-    </main>
+    <TrackList 
+        tracks={data.tracks} 
+        showAlbumColumn={false} 
+        showImage={false} 
+    />
 </div>
 
 <style>
