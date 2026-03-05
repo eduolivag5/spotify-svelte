@@ -70,15 +70,15 @@ export async function spotifyFetch<T>(endpoint: string): Promise<T | null> {
     const now = Date.now();
     
     // 1. Comprobar si tenemos una copia válida en el caché
-    if (apiCache.has(endpoint)) {
-        const cached = apiCache.get(endpoint)!;
-        if (now < cached.expires) {
-            console.log(`⚡️ Cache HIT: ${endpoint}`);
-            return cached.data as T;
-        }
-        // Si expiró, lo eliminamos
-        apiCache.delete(endpoint);
-    }
+    //if (apiCache.has(endpoint)) {
+    //    const cached = apiCache.get(endpoint)!;
+    //    if (now < cached.expires) {
+    //        console.log(`⚡️ Cache HIT: ${endpoint}`);
+    //        return cached.data as T;
+    //    }
+    //    // Si expiró, lo eliminamos
+    //    apiCache.delete(endpoint);
+    //}
 
     const token = await getAccessToken();
     const url = `${API_BASE}${endpoint}`;

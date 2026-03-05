@@ -5,7 +5,7 @@
 </script>
 
 <section class="flex flex-col gap-8 py-8 px-4 md:px-8">
-    <div class="flex items-end justify-between border-b border-white/5 pb-6">
+    <div class="flex flex-col gap-1 md:gap-0 md:flex-row items-start md:items-end justify-between border-b border-white/5 pb-6">
         <h1 class="text-4xl md:text-6xl font-black tracking-tighter text-white">
             {title}
         </h1>
