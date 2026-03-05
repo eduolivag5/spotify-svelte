@@ -1,10 +1,9 @@
 <script lang="ts">
-    // Datos actualizados con tu identidad
     const user = {
         name: "Edu Oliva",
         email: "eduolivag5@gmail.com",
         plan: "Premium Individual",
-        image: "/profile.jpg", // Ruta local a tu imagen
+        image: "/profile.jpg",
         stats: [
             { label: "Playlists", value: "32" },
             { label: "Siguiendo", value: "245" },

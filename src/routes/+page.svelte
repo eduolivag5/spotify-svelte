@@ -4,13 +4,16 @@
     import SectionContainer from '$lib/components/SectionContainer.svelte';
     import Carousel from '$lib/components/Carousel.svelte';
     import TrackRow from '$lib/components/TrackRow.svelte';
+    import HomeHeader from '$lib/components/HomeHeader.svelte';
     
     let { data } = $props();
 
-    // Lógica de saludo dinámico
     const hour = new Date().getHours();
     const greeting = hour < 12 ? 'Buenos días' : hour < 20 ? 'Buenas tardes' : 'Buenas noches';
 </script>
+
+
+<HomeHeader {greeting} />
 
 <div class="relative z-10 flex flex-col gap-10">
 

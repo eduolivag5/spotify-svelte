@@ -1,10 +1,12 @@
-// src/routes/playlist/[id]/+page.server.ts
-import * as spotify from '$lib/spotify.server'; // ✅ Importación de servidor
+import * as spotify from '$lib/spotify.server';
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ params }) => {
-    // Usamos el id directamente de params
+export const load: PageServerLoad = async ({ params, setHeaders }) => {
+    setHeaders({
+        'cache-control': 'public, max-age=3600'
+    });
+
     const playlist = await spotify.getPlaylist(params.id);
 
     if (!playlist) {

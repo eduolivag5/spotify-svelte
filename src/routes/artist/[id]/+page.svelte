@@ -96,7 +96,6 @@
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-    /* Optimizaciones de renderizado para evitar saltos en el sticky */
     nav {
         transform: translateZ(0);
     }

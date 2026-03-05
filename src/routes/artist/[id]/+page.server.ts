@@ -1,11 +1,14 @@
-import * as spotify from '$lib/spotify.server'; // ✅ Importación de servidor
+import * as spotify from '$lib/spotify.server';
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ params }) => {
+export const load: PageServerLoad = async ({ setHeaders, params }) => {
     const { id } = params;
 
-    // Llamamos a la función consolidada directamente en el servidor
+    setHeaders({
+        'cache-control': 'public, max-age=3600'
+    });
+
     const data = await spotify.getArtistData(id);
 
     if (!data.artist) {

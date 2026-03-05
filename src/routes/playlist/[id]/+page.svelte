@@ -5,7 +5,6 @@
 
     const playlist = $derived(data.playlist);
     
-    // Lógica de tracks robusta
     const trackRows = $derived(
         playlist.tracks?.items ?? 
         (playlist as any).items?.items ?? 

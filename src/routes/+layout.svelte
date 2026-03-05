@@ -7,7 +7,6 @@
     
     let { data, children } = $props();
     
-    // Configuración de límites para el Sidebar
     const MIN_WIDTH = 300; 
     const MAX_WIDTH = 600;
 
@@ -18,7 +17,6 @@
         const saved = localStorage.getItem('sidebarWidth');
         if (saved) {
             const parsed = parseInt(saved);
-            // Validamos que el valor guardado esté dentro de los rangos permitidos
             sidebarWidth = Math.max(MIN_WIDTH, Math.min(parsed, MAX_WIDTH));
         }
     });
@@ -40,8 +38,6 @@
     function onMouseMove(e: MouseEvent) {
         if (!isResizing) return;
         
-        // Calculamos el nuevo ancho basándonos en la posición del ratón
-        // Restamos 16px que suele ser el margen/padding del contenedor externo
         let newWidth = e.clientX - 16; 
         
         if (newWidth >= MIN_WIDTH && newWidth <= MAX_WIDTH) {

@@ -20,56 +20,94 @@ const BASIC_AUTH = btoa(`${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`);
 let cachedToken: string | null = null;
 let tokenPromise: Promise<string> | null = null;
 
+const apiCache = new Map<string, { data: any, expires: number }>();
+const CACHE_DURATION = 60 * 60 * 1000;
+
 export const HIGHLIGHTED_ALBUM_ID = SPOTIFY_HIGHLIGHTED_ALBUM_ID;
 
 async function getAccessToken(): Promise<string> {
+    // Solo si ya tenemos el token y no ha expirado, lo devolvemos
     if (cachedToken) return cachedToken;
+    
+    // Si ya hay una petición de token en curso, esperamos a esa
     if (tokenPromise) return tokenPromise;
 
+    // Creamos la promesa SOLO cuando se solicita por primera vez
     tokenPromise = (async () => {
-        const response = await fetch(TOKEN_ENDPOINT, {
-            method: 'POST',
-            headers: {
-                Authorization: `Basic ${BASIC_AUTH}`,
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: new URLSearchParams({
-                grant_type: 'refresh_token',
-                refresh_token: SPOTIFY_REFRESH_TOKEN,
-            }),
-        });
+        try {
+            const response = await fetch(TOKEN_ENDPOINT, {
+                method: 'POST',
+                headers: {
+                    Authorization: `Basic ${BASIC_AUTH}`,
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    grant_type: 'refresh_token',
+                    refresh_token: SPOTIFY_REFRESH_TOKEN,
+                }),
+            });
 
-        const data = await response.json();
-        cachedToken = data.access_token;
+            const data = await response.json();
+            cachedToken = data.access_token;
 
-        setTimeout(() => {
-            cachedToken = null;
-            tokenPromise = null;
-        }, (data.expires_in - 300) * 1000);
+            // Limpieza del token cuando caduque
+            setTimeout(() => {
+                cachedToken = null;
+                tokenPromise = null;
+            }, (data.expires_in - 300) * 1000);
 
-        return data.access_token;
+            return data.access_token;
+        } catch (error) {
+            tokenPromise = null; // Resetear si falla para poder reintentar
+            throw error;
+        }
     })();
 
     return tokenPromise;
 }
 
 export async function spotifyFetch<T>(endpoint: string): Promise<T | null> {
+    const now = Date.now();
+    
+    // 1. Comprobar si tenemos una copia válida en el caché
+    if (apiCache.has(endpoint)) {
+        const cached = apiCache.get(endpoint)!;
+        if (now < cached.expires) {
+            console.log(`⚡️ Cache HIT: ${endpoint}`);
+            return cached.data as T;
+        }
+        // Si expiró, lo eliminamos
+        apiCache.delete(endpoint);
+    }
+
     const token = await getAccessToken();
     const url = `${API_BASE}${endpoint}`;
     
-    console.log(`📡 Realizando fetch a: ${url}`);
+    console.log(`📡 Fetch REAL a Spotify: ${url}`);
 
-    const response = await fetch(url, {
-        headers: { Authorization: `Bearer ${token}` },
-    });
+    try {
+        const response = await fetch(url, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
 
-    if (!response.ok) {
-        // Este log es el más importante: nos dirá si es 401, 404, 400, etc.
-        console.error(`🚨 ERROR en spotifyFetch [${endpoint}]: status ${response.status} - ${response.statusText}`);
+        if (!response.ok) {
+            console.error(`🚨 ERROR [${endpoint}]: ${response.status} - ${response.statusText}`);
+            return null;
+        }
+        
+        const data = await response.json();
+
+        // 2. Guardar el resultado en el caché antes de devolverlo
+        apiCache.set(endpoint, {
+            data,
+            expires: now + CACHE_DURATION
+        });
+
+        return data;
+    } catch (error) {
+        console.error(`🚨 ERROR FATAL en fetch [${endpoint}]:`, error);
         return null;
     }
-    
-    return await response.json();
 }
 
 // --- ARTISTAS ---

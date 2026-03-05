@@ -47,12 +47,10 @@
 </div>
 
 <style>
-    /* Eliminamos cualquier filtro de blur que castigue la GPU */
     :global(html) {
         scrollbar-gutter: stable;
     }
 
-    /* Scrollbar ultra-simple */
     ::-webkit-scrollbar {
         width: 8px;
     }
